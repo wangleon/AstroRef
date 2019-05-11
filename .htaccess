@@ -1,0 +1,19 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+RewriteRule ^page(\d*)$                          index.php?page=$1 [L]
+RewriteRule ^user-([a-zA-Z0-9]*)-page(\d*)$      index.php?user=$1&page=$2 [L]
+RewriteRule ^user-([a-zA-Z0-9]*)-read-page(\d*)$ index.php?user=$1&order=read&page=$2 [L]
+RewriteRule ^user-([a-zA-Z0-9]*)-time-page(\d*)$ index.php?user=$1&order=time&page=$2 [L]
+RewriteRule ^tag-([a-zA-Z0-9_-]*)-page(\d*)$     index.php?tag=$1&page=$2 [L]
+
+RewriteRule ^ref-(\d*)$                view.php?id=$1 [L]
+RewriteRule ^user-([a-zA-Z0-9]*)$      index.php?user=$1 [L]
+RewriteRule ^user-([a-zA-Z0-9]*)-read$ index.php?user=$1&order=read [L]
+RewriteRule ^user-([a-zA-Z0-9]*)-time$ index.php?user=$1&order=time [L]
+#RewriteRule ^tag-([a-zA-Z0-9_-/\]\[]*)$     index.php?tag=$1 [L]
+RewriteRule ^tag-(\S*)$          index.php?tag=$1 [L]
+
+RewriteRule ^tags$     tags.php [L]
+RewriteRule ^journals$ journals.php [L]
+RewriteRUle ^url$      url.php [L]
