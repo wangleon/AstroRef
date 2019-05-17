@@ -1,0 +1,46 @@
+#crossbar {
+    margin: 0;
+    padding: 0;
+    border-color: black;
+    background-color: #2d2d2d;
+}
+
+#crossul {
+    height: 27px;
+    line-height: 27px;
+    display: block;
+    font-size: 13px;
+    font-family: Arial,sans-serif;
+    list-style: none;
+    margin: 0;
+    margin-left: 40px;
+    padding: 0;
+    white-space: nowrap;
+}
+
+#crossul li {
+    display: inline;
+    color: white;
+    font-weight: bold;
+    vertical-align: top;
+    position: relative;
+    padding:0;
+}
+
+#crossul li a {
+    margin: 0 10px;
+}
+
+.current_cross a {
+    color: white;
+    text-decoration: none;
+}
+
+.other_cross a {
+    color: #bbb;
+    text-decoration: none;
+}
+
+#crossul a:hover {
+    color: white;
+}

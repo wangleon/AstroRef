@@ -3,7 +3,7 @@ session_start();
 include_once("class.ref.php");
 include_once("class.common.php");
 $conn=connect_db("ref");
-$theme="plus";
+//$theme="plus";
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -13,15 +13,15 @@ $theme="plus";
 
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <link rel="shortcut icon" href="http://<?php echo $_SERVER['SERVER_NAME'] ?>/ref/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="../share/crossbar.css" type="text/css" media="all" />
-    <link rel="stylesheet" href="../share/plus.css" type="text/css" media="all" />
-    <script type="text/javascript" src="../share/js/plus_fixheader.js"></script>
+    <link rel="stylesheet" href="./css/crossbar.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="./css/plus.css" type="text/css" media="all" />
+    <script type="text/javascript" src="./js/plus_fixheader.js"></script>
     <script type="text/javascript" src="../share/js/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="../share/js/jquery-ui/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="../share/js/search_suggest.js"></script>
-    <link rel="stylesheet" href="./themes/<?php echo $theme ?>/ref.css" type="text/css" media="all" />
-    <link rel="stylesheet" href="./themes/<?php echo $theme ?>/search_suggest.css" type="text/css" media="all" />
-    <link rel="stylesheet" href="./themes/<?php echo $theme ?>/<?php echo str_replace("php","css",basename($_SERVER["SCRIPT_NAME"])) ?>" type="text/css" media="all" />
+    <script type="text/javascript" src="./js/search_suggest.js"></script>
+    <link rel="stylesheet" href="./css/ref.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="./css/search_suggest.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="./css/<?php echo str_replace("php","css",basename($_SERVER["SCRIPT_NAME"])) ?>" type="text/css" media="all" />
 
 
 <?php
@@ -49,7 +49,7 @@ echo "</title>";
 
 <div id="header">
 
-<?php include('../share/crossbar.php'); ?>
+<?php include('crossbar.php'); ?>
 
     <div id="titlebar">
 
