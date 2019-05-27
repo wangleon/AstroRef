@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once("class.ref.php");
-include_once("../share/class.common.php");
+include_once("class.common.php");
 $conn = connect_db("ref");
 
     if (isset($_POST["url"])) {
