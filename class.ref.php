@@ -25,12 +25,18 @@ function URLParser($conn, $url) {
 
         // if not in site lst, return a URL error
         if (!$find) ErrorURL();
+    } elseif (substr($url,0,34)=="https://ui.adsabs.harvard.edu/abs/") {
+        $adscode=substr($url,34,19);
+        $find = True;
     }
 
 
     if (check_repeat($conn, $adscode)) {
         RepeatRef($conn,$adscode);
     } else {
+        return NewADSParser($adscode, $url);
+
+        /*
         if (
              (substr($adscode,4,4)=='A&A.') or
              (substr($adscode,4,4)=='A&C.') or
@@ -41,6 +47,7 @@ function URLParser($conn, $url) {
         } else {
            return ADSParser($adscode, $url);
         }
+        */
     }
 }
 
@@ -224,6 +231,57 @@ function ADSParser2($adscode,$url) {
 
     return array('',$authors,$affi,$title,$abstract,$keywords,$journal,$volume,$page1,$page2,
                  $year, $date,$doi,$arxiv,$adscode,$journal2,$bibtex);
+}
+
+
+function NewADSParser($adscode, $url) {
+    global $ADS_TOKEN;
+
+    $url = "https://api.adsabs.harvard.edu/v1/search/query?q=bibcode:$adscode&fl=title,abstract,author,aff,keyword,year,bibstem,pub,volume,issue,page,pubdate,doi,identifier";
+    $ch = curl_init();
+
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array("Authorization: Bearer $ADS_TOKEN"));
+    $url_content = curl_exec($ch);
+    $content = json_decode($url_content, true);
+
+    $data = $content["response"]["docs"][0];
+
+    // find arxiv id
+    $arxiv    = "";
+    foreach($data["identifier"] as $idt) {
+        if (substr($idt,0,6)=="arXiv:") {
+            $arxiv = $idt;
+            break;
+        }
+    }
+
+    $journal = $data["pub"];
+    global $journal_name_abbr_lst;
+    if (array_key_exists($journal, $journal_name_abbr_lst)) {
+        $journal_abbr = $journal_name_abbr_lst[$journal];
+    } else {
+        $journal_abbr = "";
+    }
+
+    return array(
+        "authors"=>implode("; ", $data["author"]),
+        "affi"=>implode("; ", $data["aff"]),
+        "title"=>$data["title"][0],
+        "abstract"=>$data["abstract"],
+        "keywords"=>implode("; ", $data["keyword"]),
+        "journal"=>$journal,
+        "volume"=>$data["volume"],
+        "page1"=>$data["page"][0],
+        "page2"=>"",
+        "year"=>$data["year"],
+        "date"=>$data["pubdate"],
+        "doi"=>$data["doi"][0],
+        "arxiv"=>$arxiv,
+        "adscode"=>$adscode,
+        "journal_abbr"=>$journal_abbr,
+        "bibtex"=>"");
 }
 
 function GetBibtex($adscode,$url) {
@@ -761,6 +819,12 @@ function get_rid_by_ads($ads) {
     }
 
 }
+
+
+$journal_abbr_name_lst = array(
+    "ApJ"=>"The Astrophysical Journal",
+);
+$journal_name_abbr_lst = array_flip($journal_abbr_name_lst);
 
 
 ?>
