@@ -23,7 +23,8 @@ $conn = connect_db("ref");
             $keyword     = addslashes($_POST['keyword']);
             $affiliation = addslashes($_POST['affi']);
             $bibtex      = addslashes($_POST['bibtex']);
-            $author      = AuthorParser($_POST['author']);
+            //$author      = AuthorParser($_POST['author']);
+            $author      = $_POST['author'];
 
             $year        = $_POST['year'];
             $journal2    = $_POST['journal2'];
@@ -163,7 +164,8 @@ $conn = connect_db("ref");
             $keyword     = addslashes($_POST['keyword']);
             $affiliation = addslashes($_POST['affi']);
             $bibtex      = addslashes($_POST['bibtex']);
-            $author      = AuthorParser($_POST['author']);
+            //$author      = AuthorParser($_POST['author']);
+            $author      = $_POST['author'];
 
             $year        = $_POST['year'];
             $journal2    = $_POST['journal2'];

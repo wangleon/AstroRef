@@ -237,7 +237,8 @@ function ADSParser2($adscode,$url) {
 function NewADSParser($adscode, $url) {
     global $ADS_TOKEN;
 
-    $url = "https://api.adsabs.harvard.edu/v1/search/query?q=bibcode:$adscode&fl=title,abstract,author,aff,keyword,year,bibstem,pub,volume,issue,page,pubdate,doi,identifier";
+    $tmp_adscode = str_replace('&','%26',$adscode);
+    $url = "https://api.adsabs.harvard.edu/v1/search/query?q=bibcode:$tmp_adscode&fl=title,abstract,author,aff,keyword,year,bibstem,pub,volume,issue,page,pubdate,doi,identifier";
     $ch = curl_init();
 
     curl_setopt($ch, CURLOPT_URL, $url);

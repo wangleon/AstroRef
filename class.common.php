@@ -14,6 +14,8 @@ function connect_db($dbname) {
     //mysql_query("set names utf8");
     $pdo = new PDO("mysql:host=$DB_HOST;dbname=$dbname",$DB_USER,$DB_PWD);
     $pdo->exec('set names utf8');
+    $pdo->exec('set character set utf8;');
+    $pdo->exec('set character_set_connection=utf8;');
     return $pdo;
 }
 
@@ -230,7 +232,8 @@ class ref_cite {
 
     function get_author_lst($author) {
         $lst = array();
-        $authors = explode("|",$author);
+        //$authors = explode("|",$author);
+        $authors = explode(";",$author);
         foreach ($authors as $name) {
             if (trim($name)!="") {
                 array_push($lst,trim($name));
@@ -252,6 +255,7 @@ class ref_cite {
     }
 
     function get_first_name($name) {
+        /*
         $g = explode(" ",$name);
         $res = "";
 	    foreach ($g as $e) {
@@ -260,6 +264,8 @@ class ref_cite {
             }
         }
         return $res;
+        */
+        return explode(",", $name)[0];
     }
 
     function get_data_path() {

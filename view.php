@@ -111,11 +111,12 @@ if (isset($_GET["id"])) {
     // reStructuredText String
     $firstname = $ref->get_first_name($ref->author_lst[0]);
     $firstname = str_replace(' ','',$firstname);
-    $citemark = "[#$firstname$ref->year]";
+    $journal_abbr = str_replace('&','',$ref->journal2);
+    $citemark = "[#$firstname.$ref->year.$journal_abbr.$ref->volume.$ref->page]";
     $ads = str_replace('&','%26',$ref->adscode);
     echo "        <p>$ref->author_abbr $ref->year $citemark"."_</p>\n";
     echo "        <p>.. $citemark $ref->author_abbr, $ref->year, *$ref->journal2*, $ref->volume, $ref->page :ads:`$ads`</p>\n";
-    echo "        <p>$ref->year.$firstname.$ref->journal2.$ref->volume.$ref->page.&lt;ref-$ref->rid&gt;.pdf</p>\n";
+    //echo "        <p>$ref->year.$firstname.$ref->journal2.$ref->volume.$ref->page.&lt;ref-$ref->rid&gt;.pdf</p>\n";
     echo "    </li>\n";
 
 
