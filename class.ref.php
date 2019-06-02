@@ -925,4 +925,41 @@ $journal_abbr_name_lst = array(
 $journal_name_abbr_lst = array_flip($journal_abbr_name_lst);
 
 
+function search_fulltext($ref) {
+    if ((substr($ref->adscode,4,8)=='astro.ph') or
+        (substr($ref->adscode,4,5)=='arXiv')) {
+        # arxiv paper
+        $path="fulltext/arxiv/$ref->adscode.pdf";
+        if (file_exists($path)) {
+            return $path;
+        } else {
+            return "";
+        }
+    } elseif (substr($ref->adscode,9,4)=='book') {
+        # book
+        $path="fulltext/book/$ref->adscode.pdf";
+        if (file_exists($path)) {
+            return $path;
+        } else {
+            return "";
+        }
+    } else {
+        $journal_abbr = str_replace('&','',$ref->journal2);
+        $volume       = $ref->volume;
+        $year         = $ref->year;
+        $adscode      = $ref->adscode;
+        $path_lst = array(
+            "fulltext/$journal_abbr/$adscode.pdf",
+            "fulltext/$journal_abbr/$volume/$adscode.pdf",
+            "fulltext/$journal_abbr/$year/$adscode.pdf",
+        );
+        foreach ($path_lst as $path) {
+            if (file_exists($path)) {
+                return $path;
+            }
+        }
+        return "";
+    }
+}
+
 ?>

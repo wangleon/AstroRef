@@ -148,9 +148,10 @@ if (isset($_GET["id"])) {
     }
     //echo $ref->fulltext_path.'----';
     //$fulltext_path = "data/".$ref->code."/".$ref->adscode.".pdf";
-    if (file_exists($ref->fulltext_path)) {
+    $path = search_fulltext($ref);
+    if (strlen($path)>0) {
 ?>
-            <span class="full_text_item"><a href="<?php echo$ref->fulltext_path?>" title="pdf" target="_blank">PDF</a></span>
+            <span class="full_text_item"><a href="<?php echo $path?>" title="pdf" target="_blank">PDF</a></span>
 <?php
     }
 ?>

@@ -225,7 +225,6 @@ class ref_cite {
             $vol = '_';
         }
         $this->code     = $row['year'].'/'.str_replace('&','',$row['journal2']).'/'.$vol.'/'.$row['page'];
-        $this->fulltext_path = $this->get_fulltext_path($this);
         $this->data_path     = $this->get_data_path($this);
     }
 
@@ -261,54 +260,6 @@ class ref_cite {
             }
         }
         return $res;
-    }
-
-    function get_fulltext_path() {
-        $conf_lst = array('AcMik', 'AIPC', 'ASInC', 'ASPC', 'ASSP', 'EAS',
-            'EPJWC','EPSC','ESASP','ESOC', 'IAUS','IAUTA','ICRC',
-            'JPhCS','RMxAC','SPIE');
-        $bulletin_lst = array('BAAS','BICDS','CiUO','IBVS','LicOB');
-        $jour_novol_lst = array('LanB');
-
-        if ((substr($this->adscode,4,8)=='astro.ph') or
-            (substr($this->adscode,4,5)=='arXiv')) {
-            # this is an arxiv paper
-            return "fulltext/arxiv/$this->year/$this->adscode.pdf";
-        } elseif (substr($this->adscode,9,4)=='book') {
-            # this is a book
-            return "fulltext/book/$this->adscode.pdf";
-        } elseif (substr($this->adscode,9,4)=='conf') {
-            # this is a conference article
-            $journal = substr($this->adscode,4,5);
-            $journal = str_replace('.','',$journal);
-            return "fulltext/conference/$journal/$this->adscode.pdf";
-        } elseif (substr($this->adscode,9,4)=='work') {
-            # this is a conference article
-            $journal = substr($this->adscode,4,5);
-            $journal = str_replace('.','',$journal);
-            return "fulltext/conference/$journal/$this->adscode.pdf";
-        } elseif (in_array($this->journal2, $conf_lst)) {
-            # this is a reference article
-            $journal = str_replace('&','',$this->journal2);
-            $vol     = $this->volume;
-            $adscode = $this->adscode;
-            return "fulltext/conference/$journal/$vol/$adscode.pdf";
-        } elseif (in_array($this->journal2, $bulletin_lst)) {
-            # this is a bulletin article
-            $journal = str_replace('&','',$this->journal2);
-            $vol     = $this->volume;
-            $adscode = $this->adscode;
-            return "fulltext/bulletin/$journal/$vol/$adscode.pdf";
-        } elseif (in_array($this->volume,$jour_novol_lst)) {
-            $journal = str_replace('&','',$this->journal2);
-            return "fulltext/journal/$journal/$adscode.pdf";
-        } else {
-            # this is a normal journal paper
-            $journal = str_replace('&','',$this->journal2);
-            $vol     = $this->volume;
-            $adscode = $this->adscode;
-            return "fulltext/journal/$journal/$vol/$adscode.pdf";
-        }
     }
 
     function get_data_path() {
