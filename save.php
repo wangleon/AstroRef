@@ -32,13 +32,13 @@ $conn = connect_db("ref");
             $page        = $_POST['page'];
             $abbr        = get_paper_abbr($author,$year,$journal2,$volume,$page);
 
-            $conn->exec("insert into detail (`id`) values ($pid)");
+            //$conn->exec("insert into detail (`id`) values ($pid)");
 
-            $conn->exec("update detail set `title`       ='$title'       where id=$pid");
-            $conn->exec("update detail set `abstract`    ='$abstract'    where id=$pid");
-            $conn->exec("update detail set `keyword`     ='$keyword'     where id=$pid");
-            $conn->exec("update detail set `affiliation` ='$affiliation' where id=$pid");
-            $conn->exec("update detail set `bibtex`      ='$bibtex'      where id=$pid");
+            $conn->exec("update paper set `title`       ='$title'       where id=$pid");
+            $conn->exec("update paper set `abstract`    ='$abstract'    where id=$pid");
+            $conn->exec("update paper set `keyword`     ='$keyword'     where id=$pid");
+            $conn->exec("update paper set `affiliation` ='$affiliation' where id=$pid");
+            $conn->exec("update paper set `bibtex`      ='$bibtex'      where id=$pid");
             $conn->exec("update paper set `author`      ='$author'             where id=$pid");
             $conn->exec("update paper set `year`        = $year                where id=$pid");
             $conn->exec("update paper set `journal`     ='$_POST[journal]'     where id=$pid");
@@ -177,11 +177,11 @@ $conn = connect_db("ref");
             $relation    = $_POST['relation'];
 
             //$pid=CheckADS($_POST["adscode"]);
-            $conn->exec("update detail set `title`       ='$title'              where id=$pid");
-            $conn->exec("update detail set `abstract`    ='$abstract'           where id=$pid");
-            $conn->exec("update detail set `keyword`     ='$keyword'            where id=$pid");
-            $conn->exec("update detail set `affiliation` ='$affiliation'        where id=$pid");
-            $conn->exec("update detail set `bibtex`      ='$bibtex'             where id=$pid");
+            $conn->exec("update paper set `title`       ='$title'              where id=$pid");
+            $conn->exec("update paper set `abstract`    ='$abstract'           where id=$pid");
+            $conn->exec("update paper set `keyword`     ='$keyword'            where id=$pid");
+            $conn->exec("update paper set `affiliation` ='$affiliation'        where id=$pid");
+            $conn->exec("update paper set `bibtex`      ='$bibtex'             where id=$pid");
             $conn->exec("update paper set `author`       ='$author'             where id=$pid");
             $conn->exec("update paper set `year`         = $year                where id=$pid");
             $conn->exec("update paper set `journal`      ='$_POST[journal]'     where id=$pid");

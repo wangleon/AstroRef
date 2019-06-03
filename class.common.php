@@ -293,7 +293,7 @@ class ref_item extends ref_cite {
     }
 
     function get_title($conn,$rid) {
-        $sql = "select title from ref.detail where id=$rid";
+        $sql = "select title from ref.paper where id=$rid";
         $row = $conn->query($sql)->fetch(PDO::FETCH_ASSOC);
         return $row['title'];
     }
@@ -363,7 +363,7 @@ class ref_info extends ref_item {
     */
     function __construct($conn,$rid) {
         parent::__construct($conn,$rid);
-        $sql = "select abstract, affiliation, keyword, bibtex from ref.detail where id=$rid";
+        $sql = "select abstract, affiliation, keyword, bibtex from ref.paper where id=$rid";
         $row = $conn->query($sql)->fetch(PDO::FETCH_ASSOC);
         $this->abstract    = $row['abstract'];
         $this->affiliation = $row['affiliation'];
