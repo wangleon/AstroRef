@@ -238,7 +238,12 @@ function NewADSParser($adscode, $url) {
     global $ADS_TOKEN;
 
     $tmp_adscode = str_replace('&','%26',$adscode);
-    $url = "https://api.adsabs.harvard.edu/v1/search/query?q=bibcode:$tmp_adscode&fl=title,abstract,author,aff,keyword,year,bibstem,pub,volume,issue,page,pubdate,doi,identifier";
+    $site = "https://api.adsabs.harvard.edu/v1";
+    $fl_lst = array("title", "abstract", "author", "aff", "keyword",
+                    "year", "bibstem", "pub", "volume", "issue", "page",
+                    "pubdate", "doi", "identifier");
+    $fl_str = implode(",", $fl_lst);
+    $url = "$site/search/query?q=bibcode:$tmp_adscode&fl=$fl_str";
     $ch = curl_init();
 
     curl_setopt($ch, CURLOPT_URL, $url);
@@ -250,7 +255,7 @@ function NewADSParser($adscode, $url) {
     $data = $content["response"]["docs"][0];
 
     // find arxiv id
-    $arxiv    = "";
+    $arxiv = "";
     foreach($data["identifier"] as $idt) {
         if (substr($idt,0,6)=="arXiv:") {
             $arxiv = $idt;
@@ -267,22 +272,23 @@ function NewADSParser($adscode, $url) {
     }
 
     return array(
-        "authors"=>implode("; ", $data["author"]),
-        "affi"=>implode("; ", $data["aff"]),
-        "title"=>$data["title"][0],
-        "abstract"=>$data["abstract"],
-        "keywords"=>implode("; ", $data["keyword"]),
-        "journal"=>$journal,
-        "volume"=>$data["volume"],
-        "page1"=>$data["page"][0],
-        "page2"=>"",
-        "year"=>$data["year"],
-        "date"=>$data["pubdate"],
-        "doi"=>$data["doi"][0],
-        "arxiv"=>$arxiv,
-        "adscode"=>$adscode,
-        "journal_abbr"=>$journal_abbr,
-        "bibtex"=>"");
+        "authors"       => "|".implode("|", $data["author"])."|",
+        "affi"          => "|".implode("|", $data["aff"])."|",
+        "title"         => $data["title"][0],
+        "abstract"      => $data["abstract"],
+        "keywords"      => "|".implode("|", $data["keyword"])."|",
+        "journal"       => $journal,
+        "volume"        => $data["volume"],
+        "page1"         => $data["page"][0],
+        "page2"         => "",
+        "year"          => $data["year"],
+        "date"          => $data["pubdate"],
+        "doi"           => $data["doi"][0],
+        "arxiv"         => $arxiv,
+        "adscode"       => $adscode,
+        "journal_abbr"  => $journal_abbr,
+        "bibtex"        => "",
+    );
 }
 
 function GetBibtex($adscode,$url) {

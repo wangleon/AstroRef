@@ -255,17 +255,14 @@ class ref_cite {
     }
 
     function get_first_name($name) {
-        /*
-        $g = explode(" ",$name);
-        $res = "";
-	    foreach ($g as $e) {
-            if (substr($e,-1)!='.') {
-                $res .= ' '.$e;
+        $author_lst = explode("|",$name);
+        foreach ($author_lst as $author) {
+            $author = trim($author);
+            if (strlen($author)>0) {
+                return trim(explode(",", $author)[0]);
             }
         }
-        return $res;
-        */
-        return explode(",", $name)[0];
+        return "";
     }
 
     function get_data_path() {
