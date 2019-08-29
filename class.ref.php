@@ -369,6 +369,25 @@ function get_paper_abbr($author,$year,$journal,$volume,$page) {
     return $res;
 }
 
+function link_keywords($string) {
+    //Wrap keywords as links
+    $keyword_lst = explode('|', $string);
+    $count = 0;
+    $result = "";
+    foreach ($keyword_lst as $keyword) {
+        if (trim($keyword) != "") {
+            $link = str_replace(" ","+",$keyword);
+            $item = "<a href=\"keyword/$link\">$keyword</a>";
+            if ($count == 0) {
+                $result = $result.$item;
+            } else {
+                $result = $result."; ".$item;
+            }
+            $count = $count + 1;
+        }
+    }
+    return $result;
+}
 
 
 function AuthorLink($author) {
@@ -382,7 +401,7 @@ function AuthorLink($author) {
                 $res=$res.$ind;
                 $count=$count+1;
             } elseif ($count!=0) {
-                $res=$res.", ".$ind;
+                $res=$res."; ".$ind;
                 $count=$count+1;
             }
         }

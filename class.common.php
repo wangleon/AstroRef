@@ -232,8 +232,8 @@ class ref_cite {
 
     function get_author_lst($author) {
         $lst = array();
-        //$authors = explode("|",$author);
-        $authors = explode(";",$author);
+        $authors = explode("|",$author);
+        //$authors = explode(";",$author);
         foreach ($authors as $name) {
             if (trim($name)!="") {
                 array_push($lst,trim($name));

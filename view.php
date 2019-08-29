@@ -84,7 +84,7 @@ if (isset($_GET["id"])) {
     if ($ref->keyword!="") {
         echo "    <li class=\"paper_detail_lst\">\n";
         echo "        <h5>关键词</h5>\n";
-        echo "        <p>$ref->keyword</p>\n";
+        echo "        <p>".link_keywords($ref->keyword)."</p>\n";
         echo "    </li>\n";
     }
 
