@@ -358,14 +358,9 @@ function AuthorAbbr($author,$num=3) {
 
 function get_paper_abbr($author,$year,$journal,$volume,$page) {
     $name = explode("|",$author);
-    $g = explode(" ",$name[1]);
-    $author1 = '';
-    foreach ($g as $e) {
-        if (substr($e,-1)!='.') {
-            $author1 .= ' '.$e;
-        }
-    }
-    $res = trim($author1).", $year, $journal, $volume, $page";
+    $first_author = $name[1];
+    $g = explode(",",$first_author);
+    $res = trim($g[0]).", $year, $journal, $volume, $page";
     return $res;
 }
 
