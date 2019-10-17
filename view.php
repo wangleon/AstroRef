@@ -134,7 +134,7 @@ if (isset($_GET["id"])) {
     <li class="paper_detail_lst">
         <h5>全文链接</h5>
         <p>
-            <span class="full_text_item"><a href="http://adsabs.harvard.edu/abs/<?php echo$ref->adscode?>" title="<?php echo$ref->adscode?>" target="_blank">ADS</a></span>
+            <span class="full_text_item"><a href="https://ui.adsabs.harvard.edu/abs/<?php echo$ref->adscode?>/abstract" title="<?php echo$ref->adscode?>" target="_blank">ADS</a></span>
 <?php
     if ($ref->arxiv!="") {
         $arxiv_link=str_replace("arXiv:","",$ref->arxiv);
